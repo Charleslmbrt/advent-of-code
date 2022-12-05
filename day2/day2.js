@@ -1,10 +1,10 @@
-// rock = A et X // 1point
-// paper = B et Y // 2points
-// scissors = C et Z // 3points
+// rock = A and X --> 1point
+// paper = B and Y --> 2points
+// scissors = C and Z --> 3points
 
-// win = 6 points
-// nul = 3 points
-// perdu = 0 point
+// won = 6 points
+// tie-breaker = 3 points
+// lost = 0 point
 
 const fs = require("fs");
 
