@@ -1,10 +1,10 @@
+// X = LOST --> 0 points
+// Y = TIE-BREAKER --> 3 points
+// Z = WON --> 6 points
+
 // rock = A and X --> 1point
 // paper = B and Y --> 2points
 // scissors = C and Z --> 3points
-
-// won = 6 points
-// tie-breaker = 3 points
-// lost = 0 point
 
 const fs = require("fs");
 
@@ -25,7 +25,37 @@ inputArray.map((element) => {
 console.log("player1", player1);
 console.log("player2", player2);
 
-//--------------------------------------- WINS ---------------------------------------//
+// //--------------------------------------- PART 2 ---------------------------------------//
+
+const newPlayer2 = [];
+const getPart2 = (player1, player2) => {
+  for (i = 0; i < player2.length; i++) {
+    if (player1[i] === "B" && player2[i] === "Z") {
+      newPlayer2.push("Z");
+    } else if (player1[i] === "C" && player2[i] === "Z") {
+      newPlayer2.push("X");
+    } else if (player1[i] === "A" && player2[i] === "Z") {
+      newPlayer2.push("Y");
+    } else if (player1[i] === "B" && player2[i] === "Y") {
+      newPlayer2.push("Y");
+    } else if (player1[i] === "C" && player2[i] === "Y") {
+      newPlayer2.push("Z");
+    } else if (player1[i] === "A" && player2[i] === "Y") {
+      newPlayer2.push("X");
+    } else if (player1[i] === "B" && player2[i] === "X") {
+      newPlayer2.push("X");
+    } else if (player1[i] === "C" && player2[i] === "X") {
+      newPlayer2.push("Y");
+    } else if (player1[i] === "A" && player2[i] === "X") {
+      newPlayer2.push("Z");
+    }
+  }
+};
+
+getPart2(player1, player2);
+console.log("newPlayer2", newPlayer2);
+
+// //--------------------------------------- WINS ---------------------------------------//
 
 const winsArray = [];
 
@@ -42,10 +72,10 @@ const getWin = (player1, player2) => {
   return winsArray;
 };
 
-getWin(player1, player2);
+getWin(player1, newPlayer2);
 console.log("winArray", winsArray.length);
 
-const wonGames = {};
+let wonGames = {};
 winsArray.forEach((party) => {
   wonGames[party] = (wonGames[party] || 0) + 1;
 });
@@ -75,10 +105,10 @@ const getLose = (player1, player2) => {
   return lostArray;
 };
 
-getLose(player1, player2);
+getLose(player1, newPlayer2);
 console.log("lostArray", lostArray.length);
 
-const lostGames = {};
+let lostGames = {};
 lostArray.forEach((party) => {
   lostGames[party] = (lostGames[party] || 0) + 1;
 });
@@ -108,10 +138,10 @@ const getTieBreaker = (player1, player2) => {
   return tieBreakersArray;
 };
 
-getTieBreaker(player1, player2);
+getTieBreaker(player1, newPlayer2);
 console.log("tieBreakersArray", tieBreakersArray.length);
 
-const tieGames = {};
+let tieGames = {};
 tieBreakersArray.forEach((party) => {
   tieGames[party] = (tieGames[party] || 0) + 1;
 });
@@ -125,9 +155,9 @@ const pointsOfTieBreakerGames =
   pointsTieBreakerX + pointsTieBreakerY + pointsTieBreakerZ + pointsTieBreaker;
 console.log("pointsOfTieBreakerGames", pointsOfTieBreakerGames);
 
-//--------------------------------------- FINAL ---------------------------------------//
+//--------------------------------------- TOTAL SCORE ---------------------------------------//
 
 const totalScore =
   pointsOfWonGames + pointsOfLostGames + pointsOfTieBreakerGames;
 
-console.log("totalScore", totalScore);
+console.log("totalScore", totalScore); // 10624
