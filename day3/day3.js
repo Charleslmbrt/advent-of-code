@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { off } = require("process");
 
 const input = fs.readFileSync("input.txt").toString("utf-8");
 const inputArray = input.split("\n");
@@ -51,3 +52,52 @@ prioritiesArray.forEach((number) => {
 });
 
 console.log("sum", sum);
+
+// ------------------------------- STEP 2 --------------------------------------------
+
+const groupsArray = [];
+
+function getGroups(arr, groupSize) {
+  for (let i = 0; i < arr.length; i += groupSize) {
+    const groupOfElves = arr.slice(i, i + groupSize);
+    groupsArray.push(groupOfElves);
+  }
+  return groupsArray;
+}
+
+console.log("getGroups", getGroups(inputArray, 3));
+
+const badgesArray = [];
+groupsArray.map((group) => {
+  for (item of group[0]) {
+    for (item2 of group[1]) {
+      for (item3 of group[2]) {
+        if (item === item2 && item === item3) {
+          return badgesArray.push(item);
+        }
+      }
+    }
+  }
+});
+
+console.log("badgesArray", badgesArray);
+
+const prioritiesBadgesArray = [];
+
+for (letter of badgesArray) {
+  for (letter2 of alphabetArray) {
+    if (letter === letter2) {
+      prioritiesBadgesArray.push(alphabetArray.indexOf(letter2) + 1);
+    }
+  }
+}
+
+console.log("prioritiesBadgesArray", prioritiesBadgesArray);
+
+let badgesSum = 0;
+prioritiesBadgesArray.forEach((number) => {
+  badgesSum += number;
+  return badgesSum;
+});
+
+console.log("badgesSum", badgesSum);
